@@ -40,8 +40,7 @@ if($Mode=='html'){
     效果展示
     <div class='show'>
     <p id='put'></p>
-    </div>
-</body>";
+    </div>";
 }
  elseif($Mode=='css'){
     $print="
@@ -126,11 +125,12 @@ if($Mode=='html'){
 <div class='right'>
     代碼展示
     <div class='code' ><div id='Code'></div></div>
-</div>
-</body>";
+</div>";
  }
 ?>
 <!DOCTYPE html>
 <html lang="zh-TW">
 <?php echo $print ?>
+
+</body>
 </html>
