@@ -1,46 +1,63 @@
 <?php
 $print="";
+$Mode="html";
 $Mode=$_GET['Mode'];
 if($Mode=='html'){
     $print="
     <head>
-    <title>網頁元件產生器</title>
-    <meta charset='utf-8'>
-    <link rel='icon' type='image/x-icon' href='https://kiriqua.com/img/logo/logo.png' />
-    <link rel='shortcut icon' href='https://kiriqua.com/img/logo/logo.png' type='image/x-icon' />
-    <link rel='stylesheet' href='./css/html.css'/>
-    <script src='./js/html.js'></script>
-    <script src='https://kiriqua.com/js/reset.js'></script>
-</head>
-<body onload='reset();'>
-    <form name='form' id='form'>
-        選擇元件：
-        <input type='radio' name='tag' value='h1' />大標題
-        <input type='radio' name='tag' value='h2' />中標題
-        <input type='radio' name='tag' value='h3' />小標題
-        <input type='radio' name='tag' value='p' />段落
-        <input type='radio' name='tag' value='div' />換行區域
-        <input type='radio' name='tag' value='span' />不換行區域
-        <input type='radio' name='tag' value='a' />網頁<br>
-        標籤內容：<input type='text' name='text' placeholder='輸入內容' /><br>
-        指定ＩＤ：<input type='text' name='id' placeholder='輸入ID' /><br>
-        字體顏色：<input type='text' name='color' placeholder='輸入顏色代碼' /><br>
-        字體大小：<input type='text' name='size' placeholder='輸入字體大小' /><br>
-        尺寸單位：
-        <input type='radio' name='unit' value='px' />px
-        <input type='radio' name='unit' value='%' />%
-        <input type='radio' name='unit' value='pt' />pt
-        <input type='radio' name='unit' value='cm' />cm<br>
-        備註　　：<input type='text' name='title' /><br>
-        網址　　：<input type='url' name='url' /><br><br>
-        <input type='button' value='送出' onclick='linkstart()' title='確定嗎？不後悔嗎？' />
-        <input type='button' value='重置' onclick='window.location.reload();' title='哈哈！後悔了吧！' />
-        <input type='button' value='顯示代碼' onclick='show()' />
-    </form><br>
-    效果展示
-    <div class='show'>
-    <p id='put'></p>
-    </div>";
+        <title>網頁元件產生器</title>
+        <meta charset='utf-8'>
+        <link rel='icon' type='image/x-icon' href='https://kiriqua.com/img/logo/logo.png' />
+        <link rel='shortcut icon' href='https://kiriqua.com/img/logo/logo.png' type='image/x-icon' />
+        <link rel='stylesheet' href='./css/btn.css'/>
+        <link rel='stylesheet' href='./css/html.css'/>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+        <script src='Mode.js'></script>
+        <script src='./js/html.js'></script>
+        <script src='https://kiriqua.com/js/reset.js'></script>
+    </head>
+    <body onload='reset();'>
+        <div class='onoffswitch'>
+            <input type='checkbox' name='onoffswitch' class='onoffswitch-checkbox' id='myonoffswitch' tabindex='0' checked>
+            <label class='onoffswitch-label' for='myonoffswitch'>
+                <span class='onoffswitch-inner'></span>
+                <span class='onoffswitch-switch'></span>
+            </label>
+        </div>
+        <form name='form' id='form'>
+            選擇元件：
+            <Select id='tag'>
+                <option value='h1'>大標題</option>
+                <option value='h2'>中標題</option>
+                <option value='h3'>小標題</option>
+                <option value='p'>段落</option>
+                <option value='div'>區塊容器</option>
+                <option value='span'>行內容器</option>
+                <option value='a'>連結</option>
+            </Select><br>
+            標籤內容：<input type='text' id='text' placeholder='輸入內容' /><br>
+            指定ＩＤ：<input type='text' id='id' placeholder='輸入ID' /><br>
+            字體顏色：<input type='text' id='color' placeholder='輸入顏色代碼' /><br>
+            字體大小：<input type='text' id='size' placeholder='輸入字體大小' /><br>
+            尺寸單位：
+            <input type='radio' name='unit' value='px' />px
+            <input type='radio' name='unit' value='%' />%
+            <input type='radio' name='unit' value='pt' />pt
+            <input type='radio' name='unit' value='cm' />cm<br>
+            備註　　：<input type='text' id='title' placeholder='輸入元件備註'/><br>
+            網址　　：<input type='url' id='url' placeholder='輸入網址'/><br><br>
+            <input type='button' value='送出' id='start' title='確定嗎？不後悔嗎？' />
+            <input type='reset' value='重置' title='哈哈！後悔了吧！' />
+        </form><br>
+        效果展示
+        <hr>
+        <p id='show'></p>
+        <br>
+        <br>
+        程式碼
+        <hr>
+        <p id='copy' onclick='copy()'></p>
+    ";
 }
  elseif($Mode=='css'){
     $print="
@@ -49,12 +66,21 @@ if($Mode=='html'){
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <link rel='icon' type='image/x-icon' href='https://kiriqua.com/img/logo/logo.png' />
     <link rel='shortcut icon' href='https://kiriqua.com/img/logo/logo.png' type='image/x-icon' />
+    <link rel='stylesheet' href='./css/btn.css'/>
     <link href='./css/css.css' rel='stylesheet'>
+    <script src='Mode.js'></script>
     <script src='https://kiriqua.com/js/reset.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script src='./js/css.js'></script>
 </head>
 <body onload='reset();'>
+    <div class='onoffswitch'>
+        <input type='checkbox' name='onoffswitch' class='onoffswitch-checkbox' id='myonoffswitch' tabindex='0' checked>
+        <label class='onoffswitch-label' for='myonoffswitch'>
+            <span class='onoffswitch-inner''></span>
+            <span class='onoffswitch-switch'></span>
+        </label>
+    </div>
 <div class='left'>
 <table for='css'>
     <form name='list'>
@@ -110,7 +136,6 @@ if($Mode=='html'){
             <td>
             <input type='button' value='送出' id='start'/>
             <input type='reset' value='重置' title='哈哈！後悔了吧！' />
-            <input type='button' value='顯示代碼' onclick='show()' />
             </td>
         </tr>
     </tbody>
@@ -124,7 +149,8 @@ if($Mode=='html'){
 </div>
 <div class='right'>
     代碼展示
-    <div class='code' ><div id='Code'></div></div>
+    <hr>
+    <div class='code' ><div id='Code' onclick='copy()' ></div></div>
 </div>";
  }
 ?>

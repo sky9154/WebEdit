@@ -1,30 +1,38 @@
-var output = "";
-function linkstart() {
-    var style = "";
-    var units = "";
-    var urls = "";
-    var form = document.getElementById("form");
-    for (var i = 0; i < form.tag.length; i++) {
-        if (form.tag[i].checked) {
-            tags = form.tag[i].value;
-        };
-    };
-    for (var i = 0; i < form.unit.length; i++) {
-        if (form.unit[i].checked) {
-            units = form.unit[i].value;
-        };
-    };
-    const kirito = document.forms['form'];
-    const texts = kirito.elements.text.value;
-    const id = kirito.elements.id.value;
-    const color = kirito.elements.color.value;
-    const size = kirito.elements.size.value;
-    const title = kirito.elements.title.value;
-    urls = kirito.elements.url.value;
-    style = "' style='" + "color:" + color + '; font-size:' + size + units + ";'";
-    output = '<' + tags + " id='" + id + style + "title='" + title + "' href='" + urls + "'>" + texts + '</' + tags + '>';
-    document.getElementById('put').innerHTML = output;
-}
-function show() {
-    alert('代碼為：' + output);
+var output = "",code="";
+$(document).ready(function(){
+    var tag="",unit="",text="",id="",color="";
+    code="",output = "";
+    $("#start").click(function(){
+        tag=$('#tag').val();
+        unit=$('input:radio:checked[name="unit"]').val();
+
+        if($("#text").val()!=""){text=$("#text").val()}
+        else if($("#text").val()==""){text=""};
+
+        if($("#id").val()!=""){id=" id='"+$("#id").val()+"'"}
+        else if($("#id").val()==""){id=""};
+
+        if($("#color").val()!=""){color="color:"+$("#color").val()+"; "}
+        else if($("#color").val()==""){color=""};
+
+        if($("#size").val()!=""){size="font-size:"+$("#size").val()+unit+";"}
+        else if($("#size").val()==""){size=""};
+
+        if($("#title").val()!=""){title=" title='"+$("#title").val()+"'"}
+        else if($("#title").val()==""){title=""};
+
+        if($("#url").val()!=""&&tag=="a"){url=" href='"+$("#url").val()+"'"}
+        else if($("#url").val()==""&&tag!="a"){url=""};
+
+        output="<"+tag+id+title+url+" style='"+color+size+"'>"+text+"</"+tag+">";
+        code="&lt;"+tag+id+title+url+" style='"+color+size+"'&gt;"+text+"&lt;/"+tag+"&gt;";
+        $("#show").html(output);
+        $("#copy").html(code);
+    });
+});
+
+function copy(){
+    var str = document.getElementById("copy");
+    window.getSelection().selectAllChildren(str);
+    document.execCommand('Copy')
 }
