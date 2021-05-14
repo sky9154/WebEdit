@@ -1,29 +1,15 @@
 <?php
 $print="";
-$Mode="html";
-$Mode=$_GET['Mode'];
-if($Mode=='html'){
+$head="";
+$name=$_GET['mode'];
+if($name=='html'){
+    $head="
+    <title>網頁元件產生器</title>
+    <link rel='stylesheet' href='./css/html.css'/>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='./js/html.js'></script>
+    <script src='https://kiriqua.com/js/reset.js'></script>";
     $print="
-    <head>
-        <title>網頁元件產生器</title>
-        <meta charset='utf-8'>
-        <link rel='icon' type='image/x-icon' href='https://kiriqua.com/img/logo/logo.png' />
-        <link rel='shortcut icon' href='https://kiriqua.com/img/logo/logo.png' type='image/x-icon' />
-        <link rel='stylesheet' href='./css/btn.css'/>
-        <link rel='stylesheet' href='./css/html.css'/>
-        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-        <script src='Mode.js'></script>
-        <script src='./js/html.js'></script>
-        <script src='https://kiriqua.com/js/reset.js'></script>
-    </head>
-    <body onload='reset();'>
-        <div class='onoffswitch'>
-            <input type='checkbox' name='onoffswitch' class='onoffswitch-checkbox' id='myonoffswitch' tabindex='0' checked>
-            <label class='onoffswitch-label' for='myonoffswitch'>
-                <span class='onoffswitch-inner'></span>
-                <span class='onoffswitch-switch'></span>
-            </label>
-        </div>
         <form name='form' id='form'>
             選擇元件：
             <Select id='tag'>
@@ -59,29 +45,15 @@ if($Mode=='html'){
         <p id='copy' onclick='copy()'></p>
     ";
 }
- elseif($Mode=='css'){
-    $print="
-    <head>
+ elseif($name=='css'){
+    $head="
     <title>CSS編輯器</title>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <link rel='icon' type='image/x-icon' href='https://kiriqua.com/img/logo/logo.png' />
-    <link rel='shortcut icon' href='https://kiriqua.com/img/logo/logo.png' type='image/x-icon' />
-    <link rel='stylesheet' href='./css/btn.css'/>
     <link href='./css/css.css' rel='stylesheet'>
-    <script src='Mode.js'></script>
     <script src='https://kiriqua.com/js/reset.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-    <script src='./js/css.js'></script>
-</head>
-<body onload='reset();'>
-    <div class='onoffswitch'>
-        <input type='checkbox' name='onoffswitch' class='onoffswitch-checkbox' id='myonoffswitch' tabindex='0' checked>
-        <label class='onoffswitch-label' for='myonoffswitch'>
-            <span class='onoffswitch-inner''></span>
-            <span class='onoffswitch-switch'></span>
-        </label>
-    </div>
-<div class='left'>
+    <script src='./js/css.js'></script>";
+ $print="
+ <div class='left'>
 <table for='css'>
     <form name='list'>
     <tbody>
@@ -156,7 +128,20 @@ if($Mode=='html'){
 ?>
 <!DOCTYPE html>
 <html lang="zh-TW">
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<link rel='icon' type='image/x-icon' href='https://kiriqua.com/img/logo/logo.png' />
+<link rel='shortcut icon' href='https://kiriqua.com/img/logo/logo.png' type='image/x-icon' />
+<?php echo $head;?>
+<script src="name.js"></script>
+</head>
+<body onload='reset();'>
+<form action="index.php" method="get">
+<input type="submit" id="html" name="mode" value="html" />
+<input type="submit"name="mode"  value="css" />
+</form>
 <?php echo $print ?>
+
 
 </body>
 </html>
