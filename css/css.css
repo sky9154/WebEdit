@@ -12,10 +12,9 @@ body{
     float:left;
     width: 40%;
     position: absolute;
-    left: 42%;
+    left: 40%;
 }
 .code{
-    height: 600px;
     width: auto;
 }
 .code div{

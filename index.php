@@ -1,7 +1,14 @@
 <?php
+function a1(){
+if (isset($_GET['mode'])) {
+    return $_GET['mode'];
+} else {
+    return $name='html';;
+}
+}
+$name=a1();
 $print="";
 $head="";
-$name=$_GET['mode'];
 if($name=='html'){
     $head="
     <title>網頁元件產生器</title>
@@ -132,16 +139,17 @@ if($name=='html'){
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 <link rel='icon' type='image/x-icon' href='https://kiriqua.com/img/logo/logo.png' />
 <link rel='shortcut icon' href='https://kiriqua.com/img/logo/logo.png' type='image/x-icon' />
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <?php echo $head;?>
 <script src="name.js"></script>
 </head>
 <body onload='reset();'>
 <form action="index.php" method="get">
-<input type="submit" id="html" name="mode" value="html" />
-<input type="submit"name="mode"  value="css" />
+  <button type="submit" id="html" name="mode" value="html" class="bttn-unite bttn-md bttn-warning"><i class="fab fa-html5"></i></button>
+  <button type="submit"name="mode"  value="css" class="bttn-unite bttn-md bttn-primary"><i class="fab fa-css3-alt"></i></button>
 </form>
+<br>
 <?php echo $print ?>
-
-
 </body>
 </html>
